@@ -13,6 +13,6 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     alert("Login failed: " + (error?.message || "Invalid credentials"));
   } else {
     alert(`Login successful as ${data.role}`);
-window.location.href = `student.html?username=${encodeURIComponent(data.username)}&role=${data.role}`;
+window.location.href = `user.html?username=${encodeURIComponent(data.username)}&role=${data.role}`;
   }
 });
