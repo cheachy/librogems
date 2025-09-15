@@ -1,28 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libro Gems</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Libro Gems</title>
+  <style>
+    .hidden { display: none; }
+  </style>
 </head>
 <body>
-    <main>
-        <h1>Login</h1>
-  <form action="role.html" method="post">
-    <label for="username">Username:</label><br>
-    <input type="text" id="username" name="username" required><br><br>
+  <main>
+    <!-- Login Form -->
+    <div id="login-container">
+      <h1>Login</h1>
+      <form id="login-form">
+        <label for="username">Username:</label><br />
+        <input type="text" id="username" required /><br /><br />
 
-    <label for="password">Password :</label><br>
-    <input type="password" id="password" name="password" required><br><br>
+        <label for="password">Password:</label><br />
+        <input type="password" id="password" required /><br /><br />
 
-    <label for="role">Role :</label><br>
-    <select id="role" name="role" required>
-      <option value="user">User</option>
-      <option value="admin">Admin</option>
-    </select><br><br>
+        <label for="role">Role:</label><br />
+        <select id="role" required>
+          <option value="user">user</option>
+          <option value="admin">admin</option>
+        </select><br /><br />
 
-    <button type="submit">Login</button>
-  </form>
-    </main>
+        <button type="submit">Login</button>
+      </form>
+      <p>Don’t have an account? <a href="#" id="show-signup">Signup here</a></p>
+    </div>
+
+    <!-- Signup Form (hidden initially) -->
+    <div id="signup-container" class="hidden">
+      <h1>Signup</h1>
+      <form id="signup-form">
+        <label for="new-username">Username:</label><br />
+        <input type="text" id="new-username" required /><br /><br />
+
+        <label for="new-password">Password:</label><br />
+        <input type="password" id="new-password" required /><br /><br />
+
+        <label for="new-role">Role:</label><br />
+        <select id="new-role" required>
+          <option value="user">user</option>
+          <option value="admin">admin</option>
+        </select><br /><br />
+
+        <button type="submit">Signup</button>
+      </form>
+      <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+    </div>
+  </main>
+
+  <script type="module" src="/src/login.js"></script>
+  <script type="module" src="/src/signup.js"></script>
+  <script type="module" src="/src/utils/toggleAuth.js"></script>
+
 </body>
 </html>
