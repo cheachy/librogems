@@ -12,3 +12,13 @@ if (usernameElement && username) {
 } else {
   usernameElement.textContent = "Hello Guest!";
 }
+
+const logoutBtn = document.querySelector(".logout-btn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", (e) => {
+    e.preventDefault(); // prevent "#" from reloading page
+    // Optionally clear any saved session data here (localStorage, cookies, etc.)
+    window.location.href = "index.html"; // redirect back to login page
+  });
+}
