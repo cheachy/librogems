@@ -6,25 +6,25 @@ export async function signIn(user, password, role) {
     .from("user")
     .select("*")
     .eq("username", user)
-    .eq("password", password)  // ⚠️ plaintext only for testing
-    .eq("role", role)
-    .single();
+    .maybeSingle();
 
+  
   if (findError) {
-    return { data: null, error: { message: "Login failed: Please try again." } };
+    return { data: null, error: { message: "Login failed, try again" } };
   }
-
+  
   if (!userRow) {
-    return { data: null, error: { message: "invalid username" } };
+    return { data: null, error: { message: "Username is not registered, sign up now." } };
   }
 
   if (userRow.password !== password) {
-    return { data: null, error: { message: "password incorrect" } };
+    return { data: null, error: { message: "Password incorrect." } };
   }
 
-  if (role && userRow.role !== role) {
-    return { data: null, error: { message: "invalid credentials" } };
+  if (userRow.role !== role) {
+    return { data: null, error: { message: "Invalid credentials." } };
   }
+
 
   // If all checks pass, return the user data
   return { data: userRow, error: null };
