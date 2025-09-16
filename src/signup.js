@@ -5,7 +5,7 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
 
   const user = document.getElementById("new-username").value.trim();
   const password = document.getElementById("new-password").value;
-  const role = document.getElementById("new-role").value;
+  const role = "user";
 
   const { data, error } = await signUp(user, password, role);
 

@@ -20,7 +20,7 @@ body {
     min-height: 100vh;
 }
 
-.login-card {
+.login-card, .signup-card {
     background-color: var(--card-bg);
     padding: 40px;
     border-radius: 12px;
@@ -34,7 +34,7 @@ body {
     margin-bottom: 25px;
 }
 
-.login-icon {
+.login-icon, .signup-icon {
     font-size: 50px;
     color: var(--text-color);
     margin-bottom: 10px;
@@ -100,6 +100,17 @@ button:hover {
     transform: translateY(-2px);
 }
 
+.hidden {
+    display: none;
+}
+
+.error-text {
+    color: #e53935;
+    font-size: 12px;
+    margin-top: 2px;
+    text-align: center;
+}
+
 /* Keyframe Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95); }
@@ -116,3 +127,4 @@ button:hover {
     from { transform: translateX(-20px); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
+
