@@ -3,11 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>User Page</title>
 </head>
-<body>
-    <h1>This is the User Page!</h1>
-    <h2 class="username" id="username"></h2>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="profile-circle">
+                    <span id="profile-initials"></span>
+                </div>
+                <h3 id="username" class="username"></h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active"><i class="material-icons">book</i>My Books</a></li>
+                    <li><a href="#"><i class="material-icons">history</i>History</a></li>
+                    <li><a href="#" class="logout-btn"><i class="material-icons">logout</i>Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <h1>Book Dashboard</h1>
+            <section class="dashboard-widgets">
+                <div class="widget-card borrowed-card">
+                    <div class="card-content">
+                        <span id="borrowed-count">0</span>
+                        <p>Currently Borrowing</p>
+                    </div>
+                    <div class="card-icon">
+                        <i class="material-icons">menu_book</i>
+                    </div>
+                </div>
+
+                <div class="widget-card returned-card">
+                    <div class="card-content">
+                        <span id="returned-count">0</span>
+                        <p>Books Returned</p>
+                    </div>
+                    <div class="card-icon">
+                        <i class="material-icons">check_circle</i>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <button id="getBooksBtn">Get Books</button>
     <script type="module" src="/src/roles/user.js"></script>
