@@ -23,10 +23,9 @@ bookForm.addEventListener("submit", async (e) => {
     const author = document.getElementById("author").value.trim();
     const description = document.getElementById("description").value.trim();
     const p_date = document.getElementById("p_date").value;
-    const status = true;
-    const quantity = document.getElementById("quantity").value;
+    const quantity = Number(document.getElementById("quantity").value);
 
-    const result = await addBook(title, author, description, p_date, status, quantity);
+    const result = await addBook(title, author, description, p_date, quantity);
 
     if(result.error){
         statusMsg.textContent = `Error:${result.error}`;

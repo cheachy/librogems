@@ -8,10 +8,27 @@ export async function getBooks() {
 }
 
 // Add a new book (admin only → Confidentiality)
-export async function addBook(title, author, description, p_date , status, quantity) {
+export async function addBook(title, author, description, p_date, quantity) {
+  const { data, error } = await supabase
+    .from("book") // ✅ singular, as you said
+    .insert([{
+      title,
+      author,
+      description,
+      p_date,
+      total_copies: quantity, 
+      available_copies: quantity
+    }])
 
-  return await supabase.from("book").insert([{ title, author,description, p_date , status, quantity }]);
+
+  if (error) {
+    console.error("Add book error:", error.message, error.details);
+    return { error };
+  }
+
+  return { data };
 }
+
 
 // Borrow a book (only logged-in users → Integrity)
 export async function borrowBook(bookId) {

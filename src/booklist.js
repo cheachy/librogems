@@ -29,10 +29,11 @@ async function loadBooks () {
             <p><strong>Author:</strong> ${book.author}</p>
             <p><strong>Description:</strong> ${book.description}</p>
             <p><strong>Published:</strong> ${book.p_date}</p>
-            <p><strong>Quantity:</strong> ${book.quantity}</p>
+            <p><strong>Quantity:</strong> ${book.available_copies}</p>
             <p><strong>Status:</strong> ${book.status}</p>`;
 
             bookContainer.appendChild(card);
+            
     });
 }
 
