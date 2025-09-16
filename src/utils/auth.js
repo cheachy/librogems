@@ -4,9 +4,11 @@ export async function signIn(user, password, role) {
   // 1) Find by username first to distinguish errors
   const { data: userRow, error: findError } = await supabase
     .from("user")
-    .select("username, password, role")
+    .select("*")
     .eq("username", user)
-    .maybeSingle();
+    .eq("password", password)  // ⚠️ plaintext only for testing
+    .eq("role", role)
+    .single();
 
   if (findError) {
     return { data: null, error: { message: "Login failed: Please try again." } };
@@ -48,4 +50,9 @@ export async function signUp(user, password, role) {
     .single();
 
   return { data, error };
+}
+
+export async function getUser() {
+  const { data: { user }, error } = await supabase.auth.getUser();
+  return { user, error };
 }
