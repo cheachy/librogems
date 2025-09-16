@@ -1,6 +1,5 @@
 // utils/books.js
 import { supabase } from "../lib/supabaseClient";
-import { getUser } from "./auth";
 
 // Fetch all books (anyone logged in can see → Availability)
 export async function getBooks() {
@@ -10,18 +9,12 @@ export async function getBooks() {
 
 // Add a new book (admin only → Confidentiality)
 export async function addBook(title, author, description, p_date , status) {
-  const { user } = await getUser();
-  if (!user || user.user_metadata.role !== "admin") {
-    return { error: "Not authorized" };
-  }
-  return await supabase.from("books").insert([{ title, author,description, date_published, available }]);
+
+  return await supabase.from("book").insert([{ title, author,description, p_date , status }]);
 }
 
 // Borrow a book (only logged-in users → Integrity)
 export async function borrowBook(bookId) {
-  const { user } = await getUser();
-  if (!user) return { error: "You must log in to borrow books" };
-
   // check availability before inserting → Integrity
   const { data: book } = await supabase
     .from("books")
@@ -34,11 +27,6 @@ export async function borrowBook(bookId) {
   }
 
   // Insert rental
-  const { data, error } = await supabase
-    .from("rentals")
-    .insert([{ user_id: user.id, book_id: bookId, status: "borrowed" }]);
-
-  if (error) return { error };
 
   // Decrement availability
   await supabase
@@ -51,9 +39,6 @@ export async function borrowBook(bookId) {
 
 // Return a book (user can only return their own → Confidentiality + Integrity)
 export async function returnBook(rentalId) {
-  const { user } = await getUser();
-  if (!user) return { error: "You must log in to return books" };
-
   // Check rental ownership
   const { data: rental } = await supabase
     .from("rentals")
