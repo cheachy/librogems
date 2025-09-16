@@ -1,16 +1,31 @@
 import { supabase } from "../lib/supabaseClient.js";
 
-// Sign in against your custom users table
 export async function signIn(user, password, role) {
-  const { data, error } = await supabase
+  // 1) Find by username first to distinguish errors
+  const { data: userRow, error: findError } = await supabase
     .from("user")
-    .select("*")
+    .select("username, password, role")
     .eq("username", user)
-    .eq("password", password)  // ⚠️ plaintext only for testing
-    .eq("role", role)
-    .single();
+    .maybeSingle();
 
-  return { data, error };
+  if (findError) {
+    return { data: null, error: { message: "Login failed: Please try again." } };
+  }
+
+  if (!userRow) {
+    return { data: null, error: { message: "invalid username" } };
+  }
+
+  if (userRow.password !== password) {
+    return { data: null, error: { message: "password incorrect" } };
+  }
+
+  if (role && userRow.role !== role) {
+    return { data: null, error: { message: "invalid credentials" } };
+  }
+
+  // If all checks pass, return the user data
+  return { data: userRow, error: null };
 }
 
 export async function signUp(user, password, role) {
@@ -34,4 +49,3 @@ export async function signUp(user, password, role) {
 
   return { data, error };
 }
-
