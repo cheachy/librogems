@@ -8,9 +8,9 @@ export async function getBooks() {
 }
 
 // Add a new book (admin only → Confidentiality)
-export async function addBook(title, author, description, p_date , status) {
+export async function addBook(title, author, description, p_date , status, quantity) {
 
-  return await supabase.from("book").insert([{ title, author,description, p_date , status }]);
+  return await supabase.from("book").insert([{ title, author,description, p_date , status, quantity }]);
 }
 
 // Borrow a book (only logged-in users → Integrity)
