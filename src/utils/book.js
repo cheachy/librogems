@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabaseClient";
 
 // Fetch all books (anyone logged in can see → Availability)
 export async function getBooks() {
-  const { data, error } = await supabase.from("books").select("*");
+  const { data, error } = await supabase.from("book").select("*");
   return { data, error };
 }
 

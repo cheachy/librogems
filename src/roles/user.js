@@ -10,3 +10,7 @@ const usernameElement = document.getElementById("username");
 if (usernameElement && username) {
   usernameElement.textContent = `Hello ${username}! You are logged in as ${role}.`;
 }
+
+document.getElementById("getBooksBtn").addEventListener("click", () => {
+  window.location.href = "booklist.html";
+});
