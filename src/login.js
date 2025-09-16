@@ -17,18 +17,18 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
 
   if (error) {
     // Handle specific error types
-    if (error.message === "invalid username") {
+    if (error.message === "Username is not registered, sign up now.") {
       if (usernameErrorEl) {
         usernameErrorEl.textContent = error.message;
         usernameErrorEl.classList.remove("hidden");
       }
-    } else if (error.message === "password incorrect" || error.message === "invalid credentials") {
+    } else if (error.message === "Password incorrect." || error.message === "Invalid credentials.") {
       if (passwordErrorEl) {
         passwordErrorEl.textContent = error.message;
         passwordErrorEl.classList.remove("hidden");
       }
     } else {
-      alert("Login failed: " + error.message);
+      
     }
   } else {
     alert(`Login successful as ${data.role}`);
