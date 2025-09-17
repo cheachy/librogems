@@ -25,6 +25,7 @@ export async function signIn(user, password, role) {
     return { data: null, error: { message: "Invalid credentials." } };
   }
 
+  localStorage.setItem("user",JSON.stringify(userRow));
 
   // If all checks pass, return the user data
   return { data: userRow, error: null };
