@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="admin-dashboard.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="module" src="/src/addbook.js"></script>
+    <script type="module" src="/src/roles/admin.js"></script>
     <title>Admin Page</title>
 </head>
 
@@ -16,7 +17,8 @@
                 <div class="profile-circle">
                     <span id="profile-initials">AD</span>
                 </div>
-                <h3 id="username" class="username">Admin</h3>
+                <h3 id="username" class="username"></h3>
+                <p id="email_address" class="email-address"></p>
             </div>
             <nav class="sidebar-nav">
                 <ul>
@@ -66,7 +68,7 @@
 
             <div class="modal-overlay hidden" id="modal-overlay">
                 <div id="modal" class="addBooks-pop-up">
-                    <h2>Add Book</h2>
+                    <h2 id="addBookbtn">Add Book</h2>
                     <form id="bookForm">
                         <label>Title:<br><input type="text" id="title" required></label>
                         <label>Author:<br><input type="text" id="author" required></label>
@@ -83,7 +85,7 @@
 
             <section class="records">
                 <div class="table-container">
-                    <table>
+                    <table id="recordsTable">
                         <thead>
                             <tr>
                                 <th>No. </th>
@@ -92,38 +94,9 @@
                                 <th>Date Borrowed</th>
                                 <th>Date Returned</th>
                                 <th>Status</th>
-                                <th></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>JaneDoe</td>
-                                <td>The Catcher in the Rye</td>
-                                <td>2025-09-01</td>
-                                <td>N/A</td>
-                                <td>Pending Return</td>
-                                <td><button class="return-btn">Return</button></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>JohnSmith</td>
-                                <td>Dune</td>
-                                <td>2025-08-25</td>
-                                <td>2025-09-10</td>
-                                <td>Returned</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>SarahLee</td>
-                                <td>The Great Gatsby</td>
-                                <td>2025-09-15</td>
-                                <td>N/A</td>
-                                <td>Pending Return</td>
-                                <td><button class="return-btn">Return</button></td>
-                            </tr>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </section>

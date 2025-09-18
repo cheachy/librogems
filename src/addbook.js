@@ -1,17 +1,19 @@
 import { addBook } from "./utils/book.js";
 
 const addBookbtn = document.getElementById("addBookbtn");
-const modal = document.getElementById("modal");
+const modal = document.getElementById("modal-overlay");
 const closeModal = document.getElementById("closeModal");
 const bookForm = document.getElementById("bookForm");
 const statusMsg = document.getElementById("statusMsg");
 
 addBookbtn.addEventListener("click", () => {
-    modal.style.display = 'block';
+    modal.classList.remove("hidden");
+    modal.classList.add("visible");
 });
 
 closeModal.addEventListener("click", () => {
-    modal.style.display = 'none';
+    modal.classList.remove("visible");
+    modal.classList.add("hidden");
     bookForm.reset();
     statusMsg.textContent = '';
 });
