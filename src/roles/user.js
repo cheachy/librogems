@@ -14,7 +14,7 @@ const userEmail = document.getElementById("email_address");
 // Update the text content
 if (user && usernameElement) {
   usernameElement.textContent = `${user.first_name} ${user.last_name}`;
-  usernameGreeting.textContent = `Welcome, ${user.nick_name}`;
+  usernameGreeting.textContent = `Welcome, ${user.nick_name}!`;
   userEmail.textContent = `${user.email}`;
 }
 
