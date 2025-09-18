@@ -31,7 +31,7 @@ export async function addBook(title, author, description, p_date, quantity) {
 
 
 // Borrow a book (only logged-in users → Integrity)
-export async function borrowBook(bookId,userId  ) {
+export async function borrowBook(bookId,userId) {
   // check availability before inserting → Integrity
   const { data: book , error:  bookError} = await supabase
     .from("book")
@@ -44,9 +44,10 @@ export async function borrowBook(bookId,userId  ) {
     return {error: "Book not available"};
   }
 
+  //insert borrow record
   const {data: borrowRecord, error: borrowError} = await supabase
     .from("borrow_records")
-    .insert([{user_id: userId,book_id : bookId}])
+    .insert([{borrower_id: userId,book_id : bookId}])
 
 
   if(borrowError) return {error: borrowError.message};
@@ -56,40 +57,55 @@ export async function borrowBook(bookId,userId  ) {
     .update({available_copies: book.available_copies - 1})
     .eq("id",bookId);
 
+  if(updateError) return {error: updateError.message}
+
   return { data: borrowRecord };
 } 
 
 // Return a book (user can only return their own → Confidentiality + Integrity)
-export async function returnBook(rentalId) {
+export async function returnBook(transactionId,bookId) {
   // Check rental ownership
-  const { data: rental } = await supabase
-    .from("rentals")
-    .select("*")
-    .eq("id", rentalId)
-    .eq("user_id", user.id)
+  const { error: borrowError } = await supabase
+    .from("borrow_records")
+    .update({
+      status: "returned",
+      return_date: new Date().toISOString()
+    })
+    .eq("transaction_id",transactionId)
+
+  if (borrowError) return { error: borrowError.message };
+
+  const {data: book, error: bookError} = await supabase
+    .from("book")
+    .select("available_copies")
+    .eq("id",bookId)
     .single();
 
-  if (!rental) return { error: "Not authorized to return this rental" };
+  
+  if(bookError) return {error: bookError.message};
 
-  // Update rental
-  await supabase
-    .from("rentals")
-    .update({ status: "returned", returned_at: new Date().toISOString() })
-    .eq("id", rentalId);
+  const {error: updateError} = await supabase
+    .from("book")
+    .update({available_copies: book.available_copies + 1})
+    .eq("id",bookId);
 
-  // Increase book availability
-  const { data: book } = await supabase
-    .from("books")
-    .select("available")
-    .eq("id", rental.book_id)
-    .single();
+  if(updateError) return {error: updateError.message};
+  
+  return {data: "Book returned successfully"};
+}
 
-  if (book) {
-    await supabase
-      .from("books")
-      .update({ available: book.available + 1 })
-      .eq("id", rental.book_id);
-  }
+export async function getBorrowedBooks(userId) {
+  // Select from borrow_records + join with book table
+  const { data, error } = await supabase
+    .from("borrow_records")
+    .select(`
+      transaction_id,
+      borrow_date,
+      return_date,
+      status,
+      book:book_id ( id, title, author, description, p_date )
+    `)
+    .eq("borrower_id", userId);
 
-  return { success: true };
+  return { data, error };
 }

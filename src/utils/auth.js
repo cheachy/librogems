@@ -1,60 +1,81 @@
 import { supabase } from "../lib/supabaseClient.js";
 
-export async function signIn(user, password, role) {
-  // 1) Find by username first to distinguish errors
-  const { data: userRow, error: findError } = await supabase
-    .from("user")
+export async function signIn(email, password, role) {
+  // 1. Authenticate with Supabase Auth
+  const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+    email: email,   // 👈 here "user" must be an email
+    password,
+
+  });
+
+  if (authError) {
+    return { data: null, error: { message: "Invalid email or password." } };
+  }
+  // 2. Look up the profile in user_login
+  const { data: userRow, error: userError } = await supabase
+    .from("user_login")
     .select("*")
-    .eq("username", user)
+    .eq("id", authData.user.id) // linked to auth.users.id
+    .eq("role",role)
     .maybeSingle();
 
-  
-  if (findError) {
-    return { data: null, error: { message: "Login failed, try again" } };
-  }
-  
-  if (!userRow) {
-    return { data: null, error: { message: "Username is not registered, sign up now." } };
-  }
-
-  if (userRow.password !== password) {
-    return { data: null, error: { message: "Password incorrect." } };
-  }
-
-  if (userRow.role !== role) {
+  if (userError || !userRow) {
     return { data: null, error: { message: "Invalid credentials." } };
   }
 
-  localStorage.setItem("user",JSON.stringify(userRow));
 
-  // If all checks pass, return the user data
+  // 4. Save to localStorage
+  localStorage.setItem("user", JSON.stringify(userRow));
+
   return { data: userRow, error: null };
 }
 
-export async function signUp(user, password, role) {
-  // 1. Check if username exists
-  const { data: existingUser, error: existingError } = await supabase
-    .from("user")
-    .select("id")
-    .eq("username", user)
-    .maybeSingle();
 
-  if (existingUser) {
-    return { data: null, error: { message: "Username already taken" } };
+export async function signUp(email, password, role,first_name,last_name,nick_name) {
+  // 1. Create the user in Supabase Auth
+  const { data: authData, error: authError } = await supabase.auth.signUp({
+    email,
+    password
+  });
+
+  if (authError) {
+    return { data: null, error: { message: authError.message } };
   }
 
-  // 2. If no user found, insert new one
-  const { data, error } = await supabase
-    .from("user")
-    .insert([{ username: user, password, role }])
-    .select()
-    .single();
+  const userId = authData.user.id;
 
-  return { data, error };
+  // 2. Insert profile into user_login table
+  const { data: profile, error: profileError } = await supabase
+    .from("user_login")
+    .insert([
+      {
+        id: userId,      // 👈 foreign key to auth.users.id
+        email,        // display name
+        role,             // e.g. "user" or "admin"
+        first_name: first_name,
+        last_name: last_name,
+        nick_name: nick_name
+        
+      }
+    ])
+
+  if (profileError) {
+    return { data: null, error: { message: profileError.message } };
+  }
+
+  return { data: profile, error: null };
 }
 
-export async function getUser() {
-  const { data: { user }, error } = await supabase.auth.getUser();
-  return { user, error };
-}
 
+export async function signOut() {
+  const {error} = await supabase.auth.signOut();
+
+  if(error){
+    console.error("Error signing out:", error.message);
+    return {error};
+  }
+
+  localStorage.removeItem("user");
+
+  return {error: null};
+}

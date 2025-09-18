@@ -3,17 +3,20 @@ import { signUp } from "./utils/auth.js";
 document.getElementById("signup-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const user = document.getElementById("new-username").value.trim();
+  const email = document.getElementById("new-email").value.trim();
   const password = document.getElementById("new-password").value;
-  const role = "user";
+  const first_name = document.getElementById("new-first_name").value.trim();
+  const last_name = document.getElementById("new-last_name").value.trim();
+  const nick_name = document.getElementById("new-nick_name").value.trim();
+  const role = "user"; // default role, you can make this dynamic later if needed
 
-  const { data, error } = await signUp(user, password, role);
+  const { data, error } = await signUp(email, password, role,first_name,last_name,nick_name);
 
-  if (error || !data) {
-    alert("Signup failed: " + (error?.message || "Something went wrong"));
-  } else {
-    alert("Signup successful! Please log in.");
-    // After signup, you can redirect back to login
-    window.location.href = "student.html";
+  if (error) {
+    alert("❌ Signup failed: " + error.message);
+    return;
   }
+
+  alert("✅ Signup successful! Please check your email to confirm your account.");
+  window.location.href = "login.html"; // redirect to login
 });
