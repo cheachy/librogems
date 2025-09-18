@@ -1,33 +1,28 @@
 import { supabase } from "../lib/supabaseClient.js";
 
-export async function signIn(user, password, role) {
+export async function signIn(email, password, role) {
   // 1. Authenticate with Supabase Auth
   const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-    email: user,   // 👈 here "user" must be an email
-    password
+    email: email,   // 👈 here "user" must be an email
+    password,
+
   });
 
   if (authError) {
-    return { data: null, error: { message: "Login failed, try again" } };
+    return { data: null, error: { message: "Invalid email or password." } };
   }
-
-  const userId = authData.user.id;
-
   // 2. Look up the profile in user_login
   const { data: userRow, error: userError } = await supabase
     .from("user_login")
     .select("*")
-    .eq("id", userId) // linked to auth.users.id
+    .eq("id", authData.user.id) // linked to auth.users.id
+    .eq("role",role)
     .maybeSingle();
 
   if (userError || !userRow) {
-    return { data: null, error: { message: "User profile not found." } };
+    return { data: null, error: { message: "Invalid credentials." } };
   }
 
-  // 3. Check role
-  if (userRow.role !== role) {
-    return { data: null, error: { message: "Invalid credentialsl." } };
-  }
 
   // 4. Save to localStorage
   localStorage.setItem("user", JSON.stringify(userRow));
@@ -36,7 +31,7 @@ export async function signIn(user, password, role) {
 }
 
 
-export async function signUp(email, password, role) {
+export async function signUp(email, password, role,first_name,last_name,nick_name) {
   // 1. Create the user in Supabase Auth
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email,
@@ -56,7 +51,11 @@ export async function signUp(email, password, role) {
       {
         id: userId,      // 👈 foreign key to auth.users.id
         email,        // display name
-        role             // e.g. "user" or "admin"
+        role,             // e.g. "user" or "admin"
+        first_name: first_name,
+        last_name: last_name,
+        nick_name: nick_name
+        
       }
     ])
 

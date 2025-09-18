@@ -8,26 +8,26 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   const role = document.getElementById("role").value;
   const usernameErrorEl = document.getElementById("username-error");
   const passwordErrorEl = document.getElementById("password-error");
+  const credentialsErrorEl = document.getElementById("credentials-error");
 
   // Reset error messages
   if (usernameErrorEl) usernameErrorEl.classList.add("hidden");
   if (passwordErrorEl) passwordErrorEl.classList.add("hidden");
+  if (credentialsErrorEl) credentialsErrorEl.classList.add("hidden");
+
 
   const { data, error } = await signIn(user, password, role);
 
   if (error) {
     // Handle specific error types
-    if (error.message === "Username is not registered, sign up now.") {
-      if (usernameErrorEl) {
-        usernameErrorEl.textContent = error.message;
-        usernameErrorEl.classList.remove("hidden");
-      }
-    } else if (error.message === "Password incorrect." || error.message === "Invalid credentials.") {
+    if (error.message === "Invalid email or password.") {
       if (passwordErrorEl) {
         passwordErrorEl.textContent = error.message;
         passwordErrorEl.classList.remove("hidden");
       }
-    } else {
+    } else if(error.message === "Invalid credentials."){
+        credentialsErrorEl.textContent = error.message;
+        credentialsErrorEl.classList.remove("hidden");
       
     }
   } else {

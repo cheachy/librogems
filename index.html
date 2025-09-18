@@ -23,7 +23,6 @@
             <div class="input-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
-                <div id="username-error" class="error-text hidden"></div>
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
                 <div id="password-error" class="error-text hidden"></div>
@@ -34,6 +33,7 @@
                     <option value="user">User</option>
                     <option value="admin">Admin</option>
                 </select>
+                <div id="credentials-error" class="error-text hidden"></div>
             </div>
             <button type="submit">Login</button>
         </form>
@@ -50,11 +50,23 @@
       <form id="signup-form">
         <div class="input-group">
           <label for="new-email">Email</label>
-          <input type="email" id="new-email" required>
+          <input type="email" id="new-email" required placeholder="youremail@example.com">
         </div>
         <div class="input-group">
           <label for="new-password">Password</label>
           <input type="password" id="new-password" required>
+        </div>
+        <div class="input-group">
+          <label for="new-first-name">Firstname</label>
+          <input type="text" id="new-first_name" required placeholder="Chapelle">
+        </div>
+        <div class="input-group">
+          <label for="new-password">Lastname</label>
+          <input type="text" id="new-last_name" required placeholder="Roan">
+        </div>
+        <div class="input-group">
+          <label for="new-nickname">What do we call you?</label>
+          <input type="text" id="new-nick_name" required placeholder="Your nickname">
         </div>
       
         <button type="submit">Signup</button>
