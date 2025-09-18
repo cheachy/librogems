@@ -1,6 +1,7 @@
 // student.js
 
 
+import { signOut } from "../utils/auth.js";
 import { getBorrowedBooks ,returnBook} from "../utils/book.js";
 
 
@@ -19,13 +20,14 @@ document.getElementById("getBooksBtn").addEventListener("click", () => {
 
 const logoutBtn = document.querySelector(".logout-btn");
 
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // prevent "#" from reloading page
-    // Optionally clear any saved session data here (localStorage, cookies, etc.)
-    window.location.href = "index.html"; // redirect back to login page
-  });
-}
+logoutBtn.addEventListener("click", async () => {
+  const {error} =await signOut();
+  if(error) {
+    alert("Failed to log out: " + error.message)
+  } else {
+    window.location.href ="login.html";
+  }
+})
 
 
 async function loadBorrowedBooks() {
@@ -67,7 +69,7 @@ async function loadBorrowedBooks() {
     container.appendChild(card);
 
     // attach event handler if still borrowed
-    if (record.status === "borrowed") {
+    if (record.status === "borrowed") { 
       const returnBtn = card.querySelector(".return-btn");
       returnBtn.addEventListener("click", async () => {
         const transactionId = parseInt(returnBtn.dataset.tid,10)

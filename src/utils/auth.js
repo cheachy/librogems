@@ -67,8 +67,15 @@ export async function signUp(email, password, role,first_name,last_name,nick_nam
 }
 
 
-export async function getUser() {
-  const { data: { user }, error } = await supabase.auth.getUser();
-  return { user, error };
-}
+export async function signOut() {
+  const {error} = await supabase.auth.signOut();
 
+  if(error){
+    console.error("Error signing out:", error.message);
+    return {error};
+  }
+
+  localStorage.removeItem("user");
+
+  return {error: null};
+}
