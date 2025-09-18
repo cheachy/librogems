@@ -3,7 +3,7 @@ import { signIn } from "./utils/auth.js";
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const user = document.getElementById("username").value.trim();
+  const user = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const role = document.getElementById("role").value;
   const usernameErrorEl = document.getElementById("username-error");
