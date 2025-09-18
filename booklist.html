@@ -3,45 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="booklist.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Books List</title>
-    <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
-    h1 {
-        text-align: center;
-        margin: 20px 0;
-    }
-    .book-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 16px;
-        padding: 20px;
-    }
-    .book-card {
-        background: #fff;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .book-card h3 {
-        margin: 0 0 10px;
-        font-size: 18px;
-    }
-    .book-card p {
-        margin: 4px 0;
-        font-size: 14px;
-        color: #333;
-    }
-    </style>
 </head>
-<body>
-    <h1>Book List</h1>
-    <div id="booksContainer" class="book-container">
 
+<body>
+    <header class="main-header">
+        <button onclick="history.back()" class="back-btn">
+            <i class="material-icons">arrow_back</i>
+        </button>
+        <h1 class="header-center">Book List</h1>
+    </header>
+    
+    <div id="booksContainer" class="book-container">
+        <div class="book-card">
+            <h3 class="book-title">The Hobbit</h3>
+            <p class="book-author">Author: J.R.R. Tolkien</p>
+            <p class="book-quantity">Quantity: 5</p>
+        </div>
+        <div class="book-card">
+            <h3 class="book-title">1984</h3>
+            <p class="book-author">Author: George Orwell</p>
+            <p class="book-quantity">Quantity: 3</p>
+        </div>
+        <div class="book-card">
+            <h3 class="book-title">To Kill a Mockingbird</h3>
+            <p class="book-author">Author: Harper Lee</p>
+            <p class="book-quantity">Quantity: 7</p>
+        </div>
     </div>
     <script type="module" src="/src/booklist.js"></script>
 </body>
