@@ -8,10 +8,17 @@ import { getBorrowedBooks ,returnBook} from "../utils/book.js";
 const user = JSON.parse(localStorage.getItem("user"));
 
 const usernameElement = document.getElementById("username");
+const usernameGreeting = document.getElementById("greeting");
+const userEmail = document.getElementById("email_address");
+const borrowedDisplay = document.getElementById("borrowed-count");
+let borrowedCount = 0;
+
 
 // Update the text content
 if (user && usernameElement) {
-  usernameElement.textContent = `Hello ${user.nick_name}! You are logged in as ${user.role}.`;
+  usernameElement.textContent = `${user.first_name} ${user.last_name}`;
+  usernameGreeting.textContent = `Welcome, ${user.nick_name}!`;
+  userEmail.textContent = `${user.email}`;
 }
 
 document.getElementById("getBooksBtn").addEventListener("click", () => {
@@ -54,6 +61,9 @@ async function loadBorrowedBooks() {
   container.innerHTML = ""; // clear loading text
 
   data.forEach(record => {
+    borrowedCount += 1; 
+    borrowedDisplay.innerText = `${borrowedCount}`;
+
     const card = document.createElement("div");
     card.className = "borrow-card";
 
@@ -63,7 +73,9 @@ async function loadBorrowedBooks() {
       <p><strong>Description:</strong> ${record.book.description}</p>
       <p><strong>Borrowed On:</strong> ${new Date(record.borrow_date).toLocaleDateString()}</p>
       <p><strong>Status:</strong> ${record.status}</p>
-      ${record.status === "borrowed" ? `<button class="return-btn" data-tid="${record.transaction_id}" data-bid="${record.book.id}" >Return</button>` : ""}
+      <button class="return-btn" data-tid="${record.transaction_id}" data-bid="${record.book.id}" ${record.status === "returned" ?  "disabled" : ""}>
+        ${record.status === "borrowed" ?  "Return" : "Returned"}
+      </button>
     `;
 
     container.appendChild(card);
