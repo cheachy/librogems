@@ -5,9 +5,6 @@ const bookContainer = document.getElementById("booksContainer");
 async function loadBooks () {
     const { data, error } = await getBooks();
 
-    console.log("Supabase data:", data);
-    console.log("Supabase error:", error);
-
     if(error) {
         console.error("Error fetching books: ", error.message);
         bookContainer.innerHTML = `<p>Failed to load books: ${error.message}</p>`;
