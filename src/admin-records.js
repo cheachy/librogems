@@ -17,26 +17,35 @@ async function loadTransactions() {
       status
     `);
 
-  // clear old rows
   transactionBody.innerHTML = "";
 
-  // loop through results
+  let totalBooks = data.length;
+  let pendingReturns = 0; 
+
   data.forEach(row => {
     const tr = document.createElement("tr");
 
-    // example: adjust column names to match your table
+    if (row.status === "borrowed") pendingReturns++;
+
+    const borrow_date = new Date(row.borrow_date).toLocaleDateString();
+
+    const return_date = row.return_date ? new Date(row.return_date).toLocaleDateString(): "Not Returned";
+
     tr.innerHTML = `
       <td>${row.transaction_id}</td>
       <td>${row.user_login?.first_name} ${row.user_login?.last_name}</td>
       <td>${row.book?.title ?? ""}</td>
-      <td>${row.borrow_date}</td>
-      <td>${row.return_date}</td>
+      <td>${borrow_date}</td>
+      <td>${return_date}</td>
       <td>${row.status}</td>
     `;
 
     transactionBody.appendChild(tr);
   });
+
+  document.getElementById("total-books-count").textContent = totalBooks;
+  document.getElementById("pending-returns-count").textContent = pendingReturns;
 }
 
-// load data on page load
+
 loadTransactions();
