@@ -31,13 +31,15 @@ async function loadTransactions() {
 
     const return_date = row.return_date ? new Date(row.return_date).toLocaleDateString(): "Not Returned";
 
+    const status = row.status === 'borrowed' ? "Borrowed": "Returned";
+
     tr.innerHTML = `
       <td>${row.transaction_id}</td>
       <td>${row.user_login?.first_name} ${row.user_login?.last_name}</td>
       <td>${row.book?.title ?? ""}</td>
       <td>${borrow_date}</td>
       <td>${return_date}</td>
-      <td>${row.status}</td>
+      <td>${status}</td>
     `;
 
     transactionBody.appendChild(tr);
