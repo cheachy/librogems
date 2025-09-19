@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="module" src="/src/addbook.js"></script>
     <script type="module" src="/src/roles/admin.js"></script>
+    <script type="module" src="/src/admin-records.js"></script>
     <title>Admin Page</title>
 </head>
 
@@ -85,7 +86,7 @@
 
             <section class="records">
                 <div class="table-container">
-                    <table id="recordsTable">
+                    <table>
                         <thead>
                             <tr>
                                 <th>No. </th>
@@ -96,7 +97,9 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody id="transactionBody">
+                            <!-- Rows will be added here -->
+                        </tbody>
                     </table>
                 </div>
             </section>
