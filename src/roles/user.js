@@ -10,6 +10,9 @@ const user = JSON.parse(localStorage.getItem("user"));
 const usernameElement = document.getElementById("username");
 const usernameGreeting = document.getElementById("greeting");
 const userEmail = document.getElementById("email_address");
+const borrowedDisplay = document.getElementById("borrowed-count");
+let borrowedCount = 0;
+
 
 // Update the text content
 if (user && usernameElement) {
@@ -58,6 +61,9 @@ async function loadBorrowedBooks() {
   container.innerHTML = ""; // clear loading text
 
   data.forEach(record => {
+    borrowedCount += 1; 
+    borrowedDisplay.innerText = `${borrowedCount}`;
+
     const card = document.createElement("div");
     card.className = "borrow-card";
 

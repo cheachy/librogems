@@ -33,6 +33,7 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 .user-profile {
@@ -216,7 +217,7 @@ body {
 }
 
 .email-address {
-  margin-top: -20px;
+  margin-top: -25px;
   color: var(--primary-color);
 }
 
@@ -288,8 +289,8 @@ body {
 }
 
 .return-btn:disabled {
-  background-color: #acacac;
-  color: #414141;
+  background-color: #e1e1e1;
+  color: #a4a3a3;
   border: none;
   padding: 12px 24px;
   border-radius: 8px;
@@ -307,7 +308,7 @@ body {
 .return-btn:disabled:hover {
   cursor: default;
   transform: none;
-  background-color: #acacac;
+  background-color: #e1e1e1;
 }
 
 #borrowedBooksContainer {
