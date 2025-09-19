@@ -11,8 +11,9 @@ const usernameElement = document.getElementById("username");
 const usernameGreeting = document.getElementById("greeting");
 const userEmail = document.getElementById("email_address");
 const borrowedDisplay = document.getElementById("borrowed-count");
-let borrowedCount = 0;
-
+const returnedDisplay = document.getElementById("returned-count")
+let borrowedCount;
+let returnedCount;
 
 // Update the text content
 if (user && usernameElement) {
@@ -41,6 +42,9 @@ async function loadBorrowedBooks() {
   const user = JSON.parse(localStorage.getItem("user"));
   const container = document.getElementById("borrowedBooksContainer");
 
+  borrowedCount = 0;
+  returnedCount = 0;
+
   if (!user) {
     container.innerHTML = "<p>❌ You must be logged in to see your borrowed books.</p>";
     return;
@@ -61,8 +65,20 @@ async function loadBorrowedBooks() {
   container.innerHTML = ""; // clear loading text
 
   data.forEach(record => {
-    borrowedCount += 1; 
+
+   
+
+    if(record.status === "borrowed"){
+      borrowedCount += 1; 
+    }
+    
+    if (record.status === "returned"){
+      returnedCount += 1;
+    }
+
+
     borrowedDisplay.innerText = `${borrowedCount}`;
+    returnedDisplay.innerText = `${returnedCount}`;
 
     const card = document.createElement("div");
     card.className = "borrow-card";
