@@ -42,8 +42,9 @@ async function loadBorrowedBooks() {
   const user = JSON.parse(localStorage.getItem("user"));
   const container = document.getElementById("borrowedBooksContainer");
 
-  borrowedCount = 0;
   returnedCount = 0;
+  borrowedCount = 0;
+  
 
   if (!user) {
     container.innerHTML = "<p>❌ You must be logged in to see your borrowed books.</p>";
@@ -67,18 +68,18 @@ async function loadBorrowedBooks() {
   data.forEach(record => {
 
    
+    if (record.status === "returned"){
+      returnedCount += 1;
+    }
 
     if(record.status === "borrowed"){
       borrowedCount += 1; 
     }
     
-    if (record.status === "returned"){
-      returnedCount += 1;
-    }
+    
 
-
-    borrowedDisplay.innerText = `${borrowedCount}`;
     returnedDisplay.innerText = `${returnedCount}`;
+    borrowedDisplay.innerText = `${borrowedCount}`;
 
     const card = document.createElement("div");
     card.className = "borrow-card";
