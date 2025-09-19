@@ -47,7 +47,7 @@ export async function borrowBook(bookId,userId) {
   //insert borrow record
   const {data: borrowRecord, error: borrowError} = await supabase
     .from("borrow_records")
-    .insert([{borrower_id: userId, book_id : bookId, status}])
+    .insert([{borrower_id: userId, book_id : bookId}])
 
 
   if(borrowError) return {error: borrowError.message};
