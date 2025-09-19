@@ -8,7 +8,9 @@ async function loadTransactions() {
     .from("borrow_records")
     .select(`
       transaction_id,
-      user_login: borrower_id ( first_name ),
+      user_login: borrower_id ( 
+        first_name,
+        last_name ),
       book: book_id ( title ),
       borrow_date,
       return_date,
@@ -25,7 +27,7 @@ async function loadTransactions() {
     // example: adjust column names to match your table
     tr.innerHTML = `
       <td>${row.transaction_id}</td>
-      <td>${row.user_login?.first_name}</td>
+      <td>${row.user_login?.first_name} ${row.user_login?.last_name}</td>
       <td>${row.book?.title ?? ""}</td>
       <td>${row.borrow_date}</td>
       <td>${row.return_date}</td>
