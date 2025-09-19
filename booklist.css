@@ -1,0 +1,111 @@
+:root {
+    --bg-color: #fbfbfe;
+    --card-bg: #fff;
+    --primary-color: #9b97e9;
+    --text-color: #5c51b6;
+    --secondary-text: #c5c1ff;
+    --accent-color: #ffeb95;
+    --card-radius: 10px; 
+    --line-height: 5px; 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    color: var(--text-color);
+    padding: 20px; 
+}
+
+/* Main Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.header-center {
+    flex: 1; 
+    text-align: center;
+}
+
+.main-header h1 {
+    font-size: 2em; 
+    color: var(--text-color);
+    margin: 0;
+}
+
+.back-btn {
+    display: flex;
+    align-items: left;
+    gap: 8px;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.back-btn:hover {
+    background-color: #f0f0f0;
+    align-items: left;
+}
+
+/* Book Cards */
+
+.book-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px; 
+    padding: 0; 
+}
+
+.book-card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--card-radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.book-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%; 
+    width: 0%; 
+    height: 5px;
+    background-color: var(--accent-color);
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out; 
+}
+
+.book-card:hover::before {
+    width: 100%; 
+}
+
+.book-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: var(--text-color);
+}
+
+.book-card p {
+    margin: 4px 0;
+    font-size: 1em;
+    color: #555;
+}

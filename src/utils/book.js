@@ -109,3 +109,23 @@ export async function getBorrowedBooks(userId) {
 
   return { data, error };
 }
+
+// export async function loadTransactions() {
+//   const { data, error } = await supabase
+//     .from("borrow_records")
+//     .select(`
+//       transaction_id,
+//       user_login ( first_name, last_name ),
+//       book ( title ),
+//       borrow_date,
+//       return_date,
+//       status
+//     `);
+
+//   if (error) {
+//     console.error("Error fetching transactions:", error);
+//     return [];
+//   }
+
+//   return data;
+// }
