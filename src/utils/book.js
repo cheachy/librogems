@@ -1,4 +1,3 @@
-// utils/books.js
 import { supabase } from "../lib/supabaseClient";
 
 // Fetch all books (anyone logged in can see → Availability)
@@ -10,7 +9,7 @@ export async function getBooks() {
 // Add a new book (admin only → Confidentiality)
 export async function addBook(title, author, description, p_date, quantity) {
   const { data, error } = await supabase
-    .from("book") // ✅ singular, as you said
+    .from("book") 
     .insert([{
       title,
       author,

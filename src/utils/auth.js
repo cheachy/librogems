@@ -3,7 +3,7 @@ import { supabase } from "../lib/supabaseClient.js";
 export async function signIn(email, password, role) {
   // 1. Authenticate with Supabase Auth
   const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-    email: email,   // 👈 here "user" must be an email
+    email: email,   
     password,
 
   });
@@ -49,9 +49,9 @@ export async function signUp(email, password, role,first_name,last_name,nick_nam
     .from("user_login")
     .insert([
       {
-        id: userId,      // 👈 foreign key to auth.users.id
-        email,        // display name
-        role,             // e.g. "user" or "admin"
+        id: userId,      // foreign key to auth.users.id
+        email,        
+        role,             
         first_name: first_name,
         last_name: last_name,
         nick_name: nick_name

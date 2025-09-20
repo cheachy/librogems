@@ -1,4 +1,3 @@
-// toggleAuth.js
 const loginContainer = document.getElementById("login-container");
 const signupContainer = document.getElementById("signup-container");
 

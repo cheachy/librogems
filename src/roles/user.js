@@ -1,6 +1,3 @@
-// student.js
-
-
 import { signOut } from "../utils/auth.js";
 import { getBorrowedBooks ,returnBook} from "../utils/book.js";
 
@@ -47,7 +44,7 @@ async function loadBorrowedBooks() {
   
 
   if (!user) {
-    container.innerHTML = "<p>❌ You must be logged in to see your borrowed books.</p>";
+    container.innerHTML = "<p>You must be logged in to see your borrowed books.</p>";
     return;
   }
 
