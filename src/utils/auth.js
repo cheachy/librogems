@@ -58,6 +58,7 @@ export async function signUp(email, password, role,first_name,last_name,nick_nam
         
       }
     ])
+    .select(); 
 
   if (profileError) {
     return { data: null, error: { message: profileError.message } };
