@@ -16,7 +16,7 @@ if (user && usernameElement) {
 const logoutBtn = document.querySelector(".logout-btn");
 
 logoutBtn.addEventListener("click", async () => {
-  const {error} =await signOut();
+  const {error} = await signOut();
   if(error) {
     alert("Failed to log out: " + error.message)
   } else {

@@ -219,7 +219,7 @@ body {
 }
 
 #bookForm input {
-  padding-left: 10px; /* adds space inside the input on the left */
+  padding-left: 10px; 
 }
 
 .addBooks-pop-up form button {

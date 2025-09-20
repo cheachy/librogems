@@ -11,7 +11,7 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
   const first_name = document.getElementById("new-first_name").value.trim();
   const last_name = document.getElementById("new-last_name").value.trim();
   const nick_name = document.getElementById("new-nick_name").value.trim();
-  const role = "user"; // default role, can make this dynamic later if needed
+  const role = "user"; // default role
 
   // Store form data
   formData = { email, password, role, first_name, last_name, nick_name };
